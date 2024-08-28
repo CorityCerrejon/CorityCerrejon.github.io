@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Cédula</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .submit-btn {
+            background-color: #00afaa;
+            border-color: #00afaa;
+            color: white;
+            border-radius: 20px;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background-color: #008f8f;
+            border-color: #008f8f;
+        }
+        .submit-btn:focus,
+        .submit-btn:active {
+            background-color: #008f8f !important;
+            border-color: #008f8f !important;
+            box-shadow: none;
+        }
+        .header {
+            background-color: #008f8f;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .loading {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Consulta de Cédula</h1>
+    </div>
+    <div class="container">
+        <form id="consulta-form">
+            <div class="mb-3">
+                <label for="cedula" class="form-label">Número de Cédula:</label>
+                <input type="text" id="cedula" name="cedula" class="form-control" required>
+            </div>
+            <button type="button" id="submit-btn" class="btn submit-btn" onclick="enviarCedula()">Consultar</button>
+        </form>
+        <div id="resultado" class="mt-4">
+            <!-- Aquí se mostrará la tabla o mensaje de no resultados -->
+        </div>
+    </div>
+
+    <script>
+        function enviarCedula() {
+            const cedula = $('#cedula').val();
+            const apiUrl = 'https://prod-220.westeurope.logic.azure.com:443/workflows/b3f2cd4d08f34a62a50a93ae97e48c3f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zetpnpmUjmK9BXE2jHg2PYxUE2HrYKRutvzA-M1L5zo';
+
+            if (!cedula) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Advertencia',
+                    text: 'Por favor, ingrese el número de cédula.'
+                });
+                return;
+            }
+
+            // Mostrar alerta de espera
+            Swal.fire({
+                title: 'Consultando la información...',
+                text: 'Por favor, espere.',
+                icon: 'info',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $('#resultado').empty();
+
+            $.ajax({
+                url: apiUrl,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ "cedula": cedula }),
+                success: function(response) {
+                    Swal.close(); // Cerrar la alerta de espera
+
+                    if (response.length > 0) {
+                        // Crear tabla para mostrar los datos
+                        let table = '<table class="table table-striped"><thead><tr><th>Cédula</th><th>Empleado</th><th>Gerencia</th><th>Superintendencia</th><th>Supervisor</th><th>Fecha de Examen</th><th>Tipo de Examen</th><th>Tipo de Empleado</th><th>Tipo de Trabajo</th></tr></thead><tbody>';
+
+                        response.forEach(item => {
+                            table += `<tr>
+                                <td>${item.Cédula}</td>
+                                <td>${item.Empleado}</td>
+                                <td>${item.Gerencia}</td>
+                                <td>${item.Superintendencia}</td>
+                                <td>${item.Supervisor}</td>
+                                <td>${item.Fecha_de_Examen}</td>
+                                <td>${item.Tipo_de_Examen}</td>
+                                <td>${item.Tipo_de_Empleado}</td>
+                                <td>${item.Tipo_de_Trabajo}</td>
+                            </tr>`;
+                        });
+
+                        table += '</tbody></table>';
+                        $('#resultado').html(table);
+                    } else {
+                        $('#resultado').html('<p>No se encontraron resultados para la cédula ingresada.</p>');
+                    }
+                },
+                error: function(error) {
+                    Swal.close(); // Cerrar la alerta de espera
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Hubo un error al consultar los datos.'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

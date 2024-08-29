@@ -39,8 +39,20 @@
             text-align: center;
             margin-bottom: 30px;
         }
-        .loading {
-            display: none;
+        .table th {
+            text-align: center;
+            background-color: #00afaa;
+            color: white;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .table tbody tr:hover {
+            background-color: #d1e7dd;
+        }
+        .table td, .table th {
+            vertical-align: middle;
+            text-align: center;
         }
     </style>
 </head>
@@ -98,7 +110,7 @@
 
                     if (response.length > 0) {
                         // Crear tabla para mostrar los datos
-                        let table = '<table class="table table-striped"><thead><tr><th>Cédula</th><th>Empleado</th><th>Fecha de exámen</th><th>Fecha del próximo exámen</th><th>Días transcurridos</th><th>Estado</th><th>Tipo de Examen</th><th>Tipo de Empleado</th><th>Tipo de Trabajo</th><th>Gerencia</th><th>Superientendencia</th><th>Supervisor</th></tr></thead><tbody>';
+                        let table = '<table class="table table-striped table-bordered"><thead><tr><th>Cédula</th><th>Empleado</th><th>Fecha de Examen</th><th>Fecha del Próximo Examen</th><th>Días Transcurridos</th><th>Estado</th><th>Tipo de Examen</th><th>Tipo de Empleado</th><th>Tipo de Trabajo</th><th>Gerencia</th><th>Superintendencia</th><th>Supervisor</th></tr></thead><tbody>';
 
                         response.forEach(item => {
                             // Parsear la fecha del examen

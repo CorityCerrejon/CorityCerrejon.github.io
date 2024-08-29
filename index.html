@@ -98,7 +98,7 @@
 
                     if (response.length > 0) {
                         // Crear tabla para mostrar los datos
-                        let table = '<table class="table table-striped"><thead><tr><th>Cédula</th><th>Empleado</th><th>Gerencia</th><th>Superintendencia</th><th>Supervisor</th><th>Fecha de Examen</th><th>Tipo de Examen</th><th>Tipo de Empleado</th><th>Tipo de Trabajo</th><th>Fecha Próximo Examen</th><th>Días Transcurridos</th><th>Estado</th></tr></thead><tbody>';
+                        let table = '<table class="table table-striped"><thead><tr><th>Cédula</th><th>Empleado</th><th>Fecha de exámen</th><th>Fecha del próximo exámen</th><th>Días transcurridos</th><th>Estado</th><th>Tipo de Examen</th><th>Tipo de Empleado</th><th>Tipo de Trabajo</th><th>Gerencia</th><th>Superientendencia</th><th>Supervisor</th></tr></thead><tbody>';
 
                         response.forEach(item => {
                             // Parsear la fecha del examen
@@ -124,9 +124,6 @@
                             table += `<tr>
                                 <td>${item.Cédula}</td>
                                 <td>${item.Empleado}</td>
-                                <td>${item.Gerencia}</td>
-                                <td>${item.Superintendencia}</td>
-                                <td>${item.Supervisor}</td>
                                 <td>${item.Fecha_de_Examen}</td>
                                 <td>${fechaProximoExamen.toLocaleDateString('es-ES')}</td>
                                 <td>${diasTranscurridos}</td>
@@ -134,6 +131,9 @@
                                 <td>${item.Tipo_de_Examen}</td>
                                 <td>${item.Tipo_de_Empleado}</td>
                                 <td>${item.Tipo_de_Trabajo}</td>
+                                <td>${item.Gerencia}</td>
+                                <td>${item.Superintendencia}</td>
+                                <td>${item.Supervisor}</td>
                             </tr>`;
                         });
 

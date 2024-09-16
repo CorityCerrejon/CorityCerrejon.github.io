@@ -67,6 +67,7 @@ function enviarCedula() {
                     document.getElementById("IdNombre").value = item.Empleado;
                     document.getElementById("IdCedula").value = item.Cédula;
                     document.getElementById("IdFechaExamen").value = item.Fecha_de_Examen;
+                    document.getElementById("IdFechaProximoExamen").value = fechaProximoExamen;
                     document.getElementById("IdTipoExamen").value = item.Tipo_de_Examen;
                     document.getElementById("IdTipoEmpleado").value = item.Tipo_de_Empleado;
                     document.getElementById("IdGerencia").value = item.Gerencia;

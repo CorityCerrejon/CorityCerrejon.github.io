@@ -22,6 +22,7 @@ function enviarCedula() {
         }
     });
 
+    // Limpiar cualquier resultado previo (si se utiliza)
     $('#resultado').empty();
 
     $.ajax({
@@ -33,7 +34,6 @@ function enviarCedula() {
             Swal.close(); // Cerrar la alerta de espera
 
             if (response.length > 0) {
-               
                 response.forEach(item => {
                     // Parsear la fecha del examen
                     let fechaExamen = new Date(item.Fecha_de_Examen.split('/').reverse().join('-'));
@@ -55,25 +55,18 @@ function enviarCedula() {
                         estado = 'Vigente';
                     }
 
-                        document.getElementById("IdNombre").value = item.Empleado;
-                        document.getElementById("IdCedula").value = item.Cédula;
-                        document.getElementById("IdFechaExamen").value = item.Fecha_de_Examen;
-                        document.getElementById("IdTipoExamen").value = item.Tipo_de_Examen;
-                        document.getElementById("IdTipoEmpleado").value = item.Tipo_de_Empleado;
-        
-                        
-                        //<td>${fechaProximoExamen.toLocaleDateString('es-ES')}</td>
-                        //<td>${diasTranscurridos}</td>
-                        //<td>${item.Tipo_de_Trabajo}</td>
-                        //<td>${item.Gerencia}</td>
-                        //<td>${item.Superintendencia}</td>
-                        //<td>${item.Supervisor}</td>
-                   
-                });
+                    // Actualizar los campos con los datos
+                    document.getElementById("IdNombre").value = item.Empleado;
+                    document.getElementById("IdCedula").value = item.Cédula;
+                    document.getElementById("IdFechaExamen").value = item.Fecha_de_Examen;
+                    document.getElementById("IdTipoExamen").value = item.Tipo_de_Examen;
+                    document.getElementById("IdTipoEmpleado").value = item.Tipo_de_Empleado;
 
-               
+                    // Mostrar mensaje de éxito si es necesario
+                    // Swal.fire('Éxito', 'La información se ha consultado correctamente.', 'success');
+                });
             } else {
-                alert("No se encontraron resultados para la cédula ingresada.");
+                Swal.fire('No se encontraron resultados', 'No se encontraron resultados para la cédula ingresada.', 'info');
             }
         },
         error: function(error) {

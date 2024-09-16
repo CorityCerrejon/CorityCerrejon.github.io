@@ -64,16 +64,98 @@ function enviarCedula() {
                     }
 
                     // Actualizar los campos con los datos
-                    document.getElementById("IdNombre").value = item.Empleado;
-                    document.getElementById("IdCedula").value = item.Cédula;
-                    document.getElementById("IdFechaExamen").value = item.Fecha_de_Examen;
-                    document.getElementById("IdFechaProximoExamen").value = fechaProximoExamen.toLocaleDateString('es-ES');
-                    document.getElementById("IdTipoExamen").value = item.Tipo_de_Examen;
-                    document.getElementById("IdTipoEmpleado").value = item.Tipo_de_Empleado;
-                    document.getElementById("IdGerencia").value = item.Gerencia;
-                    document.getElementById("IdSP").value = item.Superintendencia;
-                    document.getElementById("IdTipoTrabajo").value = item.Tipo_de_Trabajo;
-                    document.getElementById("IdSupervisor").value = item.Supervisor;
+
+                 
+
+                      var empleado = item.Empleado;
+
+                        if (empleado !== null && empleado !== '') {
+                          document.getElementById("IdNombre").value = item.Empleado;
+                        } else {
+                        document.getElementById("IdNombre").value = '';
+                                }
+
+                     var cedula = item.Cédula;
+
+                        if (cedula !== null && cedula !== '') {
+                          document.getElementById("IdCedula").value = item.Cédula;
+                        } else {
+                        document.getElementById("IdCedula").value = '';
+                                }
+
+                     var FechaExamen = item.Fecha_de_Examen;
+
+                        if (FechaExamen !== null && FechaExamen !== '') {
+                          document.getElementById("IdFechaExamen").value = item.Fecha_de_Examen;
+                        } else {
+                        document.getElementById("IdFechaExamen").value = '';
+                                }
+
+                     var FechaProximoExamen = fechaProximoExamen.toLocaleDateString('es-ES');
+
+                        if (FechaProximoExamen !== null && FechaProximoExamen !== '') {
+                          document.getElementById("IdFechaProximoExamen").value = fechaProximoExamen.toLocaleDateString('es-ES');
+                        } else {
+                        document.getElementById("IdFechaProximoExamen").value = '';
+                                }
+
+                    var TipoExamen = item.Tipo_de_Examen;
+
+                        if (TipoExamen !== null && TipoExamen !== '') {
+                          document.getElementById("IdTipoExamen").value = item.Tipo_de_Examen;
+                        } else {
+                        document.getElementById("IdTipoExamen").value = '';
+                                }
+
+                    var TipoEmpleado = item.Tipo_de_Empleado;
+
+                        if (TipoEmpleado !== null && TipoEmpleado !== '') {
+                          document.getElementById("IdTipoEmpleado").value = item.Tipo_de_Empleado;
+                        } else {
+                        document.getElementById("IdTipoEmpleado").value = '';
+                                }
+
+                     var Gerencia = item.Gerencia;
+
+                        if (Gerencia !== null && Gerencia !== '') {
+                          document.getElementById("IdGerencia").value = item.Gerencia;
+                        } else {
+                        document.getElementById("IdGerencia").value = '';
+                                }
+                    var SP = item.Superintendencia;
+
+                        if (SP !== null && SP !== '') {
+                          document.getElementById("IdSP").value = item.Superintendencia;
+                        } else {
+                        document.getElementById("IdSP").value  = '';
+                                }
+                    var TipoTrabajo = item.Tipo_de_Trabajo;
+
+                        if (TipoTrabajo !== null && TipoTrabajo !== '') {
+                          document.getElementById("IdTipoTrabajo").value = item.Tipo_de_Trabajo;
+                        } else {
+                        document.getElementById("IdTipoTrabajo").value = '';
+                                }
+
+                    var Supervisor = item.Supervisor;
+
+                        if (Supervisor !== null && Supervisor !== '') {
+                          document.getElementById("IdSupervisor").value = item.Supervisor;
+                        } else {
+                        document.getElementById("IdSupervisor").value = '';
+                                }
+
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
 
 
                     // Mostrar mensaje de éxito si es necesario

@@ -83,3 +83,66 @@ function enviarCedula() {
         }
     });
 }
+
+
+
+function SolicitarExamen() {
+
+    let NombrePersona = document.getElementById("IdNombre").value;
+    let CedulaPersona = document.getElementById("IdCedula").value;
+    let FechaUltimoExamen = document.getElementById("IdFechaExamen").value;
+
+   
+    const data = {
+        "NombrePersona": NombrePersona,
+        "CedulaPersona": CedulaPersona,
+        "FechaUltimoExamen": FechaUltimoExamen
+    };
+
+    const apiUrlRegistrar = 'https://prod-254.westeurope.logic.azure.com:443/workflows/7b9fac14d7c7447f8f6cf8803e6a1bb8/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=RXiixC_eJISURFLvBOsQVI0vEzCXkncZlhGpkXEwQcg';
+
+      // Deshabilitar el botón de enviar y mostrar alerta de espera
+      $('#correo-btn').prop('disabled', true);
+      Swal.fire({
+          title: 'Por favor, espere...',
+          text: 'Solicitanto examen medico.',
+          icon: 'info',
+          allowOutsideClick: false,
+          didOpen: () => {
+              Swal.showLoading();
+          }
+      });
+  
+     
+    
+    $.ajax({
+        url: apiUrlRegistrar,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: `Se ha solicitado examen medico para  ${NombrePersona} con cedula ${CedulaPersona}.`
+            }).then((result) => {
+                document.getElementById('consulta-form').reset(); // Limpiar el formulario
+                $('#correo-btn').prop('disabled', false); // Habilitar el botón de enviar
+            });
+        },
+        error: function(error) {
+            console.error('Error al enviar la información:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al enviar el archivo.'
+            });
+            $('#correo-btn').prop('disabled', false); // Habilitar el botón de enviar en caso de error
+        }
+    });
+
+
+
+}
+
+

@@ -23,7 +23,11 @@ function enviarCedula() {
     });
 
     // Limpiar cualquier resultado previo (si se utiliza)
-    $('#resultado').empty();
+    document.getElementById("IdNombre").value = "";
+    document.getElementById("IdCedula").value = "";
+    document.getElementById("IdFechaExamen").value = "";
+    document.getElementById("IdTipoExamen").value = "";
+    document.getElementById("IdTipoEmpleado").value = "";
 
     $.ajax({
         url: apiUrl,

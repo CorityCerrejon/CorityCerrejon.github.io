@@ -28,6 +28,10 @@ function enviarCedula() {
     document.getElementById("IdFechaExamen").value = "";
     document.getElementById("IdTipoExamen").value = "";
     document.getElementById("IdTipoEmpleado").value = "";
+    document.getElementById("IdGerencia").value = "";
+    document.getElementById("IdSP").value = "";
+    document.getElementById("IdTipoTrabajo").value = "";
+    document.getElementById("IdSupervisor").value = "";
 
     $.ajax({
         url: apiUrl,
@@ -65,6 +69,11 @@ function enviarCedula() {
                     document.getElementById("IdFechaExamen").value = item.Fecha_de_Examen;
                     document.getElementById("IdTipoExamen").value = item.Tipo_de_Examen;
                     document.getElementById("IdTipoEmpleado").value = item.Tipo_de_Empleado;
+                    document.getElementById("IdGerencia").value = item.Gerencia;
+                    document.getElementById("IdSP").value = item.Superintendencia;
+                    document.getElementById("IdTipoTrabajo").value = item.Tipo_de_Trabajo;
+                    document.getElementById("IdSupervisor").value = item.Supervisor;
+
 
                     // Mostrar mensaje de éxito si es necesario
                     // Swal.fire('Éxito', 'La información se ha consultado correctamente.', 'success');

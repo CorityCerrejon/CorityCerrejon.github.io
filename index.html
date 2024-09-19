@@ -8,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="./css/style.css">
-
 </head>
 <body>
     <div class="header">
@@ -22,12 +21,62 @@
             </div>
             <button type="button" id="submit-btn" class="btn submit-btn" onclick="enviarCedula()">Consultar</button>
         </form>
-        <div id="resultado" class="mt-4">
-            <!-- Aquí se mostrará la tabla o mensaje de no resultados -->
-        </div>
+        
+        <!-- Formulario de resultado -->
+        <form style="display: none;" id="resultado" class="row mt-5">
+            <div class="col-lg-4 col-md-6">
+              <label for="IdNombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="IdNombre">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdCedula" class="form-label">Cédula</label>
+              <input type="text" class="form-control" id="IdCedula">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdFechaExamen" class="form-label">Fecha último examen (dd/mm/yyyy)</label>
+              <input type="text" class="form-control" id="IdFechaExamen">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdFechaProximoExamen" class="form-label">Fecha próximo examen (dd/mm/yyyy)</label>
+              <input type="text" class="form-control" id="IdFechaProximoExamen">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdDiasTranscurridos" class="form-label">Días transcurridos</label>
+              <input type="text" class="form-control" id="IdDiasTranscurridos">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdEstado" class="form-label">Estado</label>
+              <input type="text" class="form-control" id="IdEstado">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdTipoExamen" class="form-label">Tipo examen</label>
+              <input type="text" class="form-control" id="IdTipoExamen">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdTipoEmpleado" class="form-label">Tipo de empleado</label>
+              <input type="text" class="form-control" id="IdTipoEmpleado">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdGerencia" class="form-label">Gerencia</label>
+              <input type="text" class="form-control" id="IdGerencia">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdSP" class="form-label">Superintendencia</label>
+              <input type="text" class="form-control" id="IdSP">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdTipoTrabajo" class="form-label">Tipo de trabajo</label>
+              <input type="text" class="form-control" id="IdTipoTrabajo">
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label for="IdSupervisor" class="form-label">Supervisor</label>
+              <input type="text" class="form-control" id="IdSupervisor">
+            </div>
+            
+            <button style="display: none;" type="button" id="correo-btn" class="btn submit-btn col-lg-2 col-md-4 mt-3" onclick="SolicitarExamen()">Solicitar</button>
+        </form>
     </div>
 
     <script src="./js/script.js"></script>
-
 </body>
 </html>

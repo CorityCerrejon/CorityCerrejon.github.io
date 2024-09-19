@@ -118,56 +118,92 @@ function SolicitarExamen() {
     let NombrePersona = document.getElementById("IdNombre").value;
     let CedulaPersona = document.getElementById("IdCedula").value;
     let FechaUltimoExamen = document.getElementById("IdFechaExamen").value;
+    let FechaProximoExamen = document.getElementById("IdFechaProximoExamen").value;
     let Gerencia = document.getElementById("IdGerencia").value;
     let Superintendencia = document.getElementById("IdSP").value;
+    let Supervisor = document.getElementById("IdSupervisor").value;
     let TipoDeTrabajo = document.getElementById("IdTipoTrabajo").value;
+    let FechaTentativaExamen = formatFecha(document.getElementById("IdFechaSelect").value);
+
+    // Validar que todos los campos necesarios estén llenos
+    if (!NombrePersona || !CedulaPersona || !FechaUltimoExamen || !FechaProximoExamen || !Gerencia || !Superintendencia || !TipoDeTrabajo || !FechaTentativaExamen|| !Supervisor ) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos obligatorios',
+            text: 'Todos los campos deben estar llenos. Por favor, completa todos los campos.'
+        });
+        return; // Detener el proceso si algún campo está vacío
+    }
+
+    // Formatear la fecha de yyyy-mm-dd a dd/mm/yyyy
+    function formatFecha(fecha) {
+        const partesFecha = fecha.split("-");
+        return `${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]}`; // Retornar en formato dd/mm/yyyy
+    }
 
     const data = {
         "NombrePersona": NombrePersona,
         "CedulaPersona": CedulaPersona,
         "FechaUltimoExamen": FechaUltimoExamen,
+        "FechaProximoExamen": FechaProximoExamen,
         "Gerencia": Gerencia,
         "Superintendencia": Superintendencia,
-        "TipoDeTrabajo": TipoDeTrabajo
+        "TipoDeTrabajo": TipoDeTrabajo,
+        "FechaTentativaExamen": FechaTentativaExamen
     };
 
-    const apiUrlRegistrar = 'https://prod-254.westeurope.logic.azure.com:443/workflows/7b9fac14d7c7447f8f6cf8803e6a1bb8/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=RXiixC_eJISURFLvBOsQVI0vEzCXkncZlhGpkXEwQcg';
-
-    // Deshabilitar el botón de enviar y mostrar alerta de espera
-    $('#correo-btn').prop('disabled', true);
+    // Preguntar si realmente desea solicitar el examen
     Swal.fire({
-        title: 'Por favor, espere...',
-        text: 'Solicitando examen médico.',
-        icon: 'info',
-        allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading();
-        }
-    });
+        title: '¿Estás seguro?',
+        text: `¿Deseas solicitar el examen médico para ${NombrePersona}?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, solicitar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Si el usuario confirma, realizar la solicitud
+            const apiUrlRegistrar = 'https://prod-254.westeurope.logic.azure.com:443/workflows/7b9fac14d7c7447f8f6cf8803e6a1bb8/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=RXiixC_eJISURFLvBOsQVI0vEzCXkncZlhGpkXEwQcg';
 
-    $.ajax({
-        url: apiUrlRegistrar,
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        success: function() {
+            // Deshabilitar el botón de enviar y mostrar alerta de espera
+            $('#correo-btn').prop('disabled', true);
             Swal.fire({
-                icon: 'success',
-                title: 'Éxito',
-                text: `Se ha solicitado examen médico para ${NombrePersona} con cédula ${CedulaPersona}.`
-            }).then((result) => {
-                document.getElementById('consulta-form').reset(); // Limpiar el formulario
-                $('#correo-btn').prop('disabled', false); // Habilitar el botón de enviar
+                title: 'Por favor, espere...',
+                text: 'Solicitando examen médico.',
+                icon: 'info',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
             });
-        },
-        error: function(error) {
-            console.error('Error al enviar la información:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Error al enviar el archivo.'
+
+            $.ajax({
+                url: apiUrlRegistrar,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: `Se ha solicitado examen médico para ${NombrePersona} con cédula ${CedulaPersona}.`
+                    }).then(() => {
+                        document.getElementById('consulta-form').reset(); // Limpiar el formulario
+                        $('#correo-btn').prop('disabled', false); // Habilitar el botón de enviar
+                    });
+                },
+                error: function(error) {
+                    console.error('Error al enviar la información:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al enviar la solicitud.'
+                    });
+                    $('#correo-btn').prop('disabled', false); // Habilitar el botón de enviar en caso de error
+                }
             });
-            $('#correo-btn').prop('disabled', false); // Habilitar el botón de enviar en caso de error
         }
     });
 }
+
+

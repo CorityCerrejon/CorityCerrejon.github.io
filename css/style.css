@@ -1,7 +1,20 @@
-
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #008f8f;/* Fondo blanco para que no se vea el contenido detrás */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+}
 body {
     margin: 0;
     padding: 0;
+    padding-top: 80px;
     background-color: #f8f9fa;
 }
 .container {
@@ -24,13 +37,6 @@ body {
     border-color: #008f8f !important;
     box-shadow: none;
 }
-.header {
-    background-color: #008f8f;
-    color: white;
-    padding: 8px;
-    text-align: center;
-    margin-bottom: 30px;
-}
 .table th {
     text-align: center;
     background-color: #00afaa;
@@ -46,3 +52,36 @@ body {
     vertical-align: middle;
     text-align: center;
 }
+
+
+
+.custom-date-input {
+    background-color: #f7f7f7;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .custom-date-input:focus {
+    border-color: #66afe9;
+    outline: none;
+    box-shadow: 0 4px 12px rgba(102, 175, 233, 0.5);
+  }
+
+  .input-group-text:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .input-group-text {
+    border-right: none;
+    background-color: #fff;
+    border-color: #ced4da;
+    padding: 0.75rem;
+    border-radius: 0.375rem 0 0 0.375rem;
+  }
+
+

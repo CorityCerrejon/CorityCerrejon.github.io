@@ -35,33 +35,30 @@ function enviarCedula() {
 
                 // Verificar si el campo Tipo_de_Trabajo está vacío, es nulo o diferente de 'PTC' o 'MPT'
                 if (!tipoDeTrabajo || tipoDeTrabajo === '' || (tipoDeTrabajo !== 'PTC' && tipoDeTrabajo !== 'MPT')) {
+                    const NombrePersona = item.Empleado;
+                    
+
                     Swal.fire({
-                        title: 'Ingresar tipo de trabajo',
-                        text: 'No se encontró el tipo de trabajo, Por favor seleccionelo',
+                        title: `${NombrePersona} necesito de tu ayuda`,
+                        text: '¿Eres PTC o MPT?',
                         icon: 'question',
-                        input: 'select',
-                        inputOptions: {
-                            'PTC': 'PTC',
-                            'MPT': 'MPT'
-                        },
-                        inputPlaceholder: 'Selecciona el tipo de trabajo',
-                        showCancelButton: true,
-                        confirmButtonText: 'Seleccionar',
-                        cancelButtonText: 'Cancelar',
-                        inputValidator: (value) => {
-                            if (!value) {
-                                return 'Debes seleccionar un tipo de trabajo.';
-                            }
-                        }
+                        showDenyButton: true,
+                        confirmButtonText: 'PTC',
+                        denyButtonText: 'MPT',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            const tipoDeTrabajoSeleccionado = result.value;
-                            item.Tipo_de_Trabajo = tipoDeTrabajoSeleccionado;
-
-                            // Continuar con la lógica después de seleccionar el tipo de trabajo
-                            procesarDatos(item);
+                            // El usuario seleccionó "PTC"
+                            item.Tipo_de_Trabajo = 'PTC';
+                            procesarDatos(item); // Lógica para continuar con PTC
+                        } else if (result.isDenied) {
+                            // El usuario seleccionó "MPT"
+                            item.Tipo_de_Trabajo = 'MPT';
+                            procesarDatos(item); // Lógica para continuar con MPT
                         }
+                        // Si se cancela, no pasa nada, el flujo se detiene
                     });
+                    
+
                 } else {
                     // Si el tipo de trabajo es válido, continuar con la lógica normal
                     procesarDatos(item);
@@ -85,9 +82,9 @@ function procesarDatos(item) {
     let hoy = new Date();
     let diasTranscurridos = Math.floor((hoy - fechaExamen) / (1000 * 60 * 60 * 24));
 
-    let diasParaSumar = item.Tipo_de_Trabajo === 'PTC' ? 365 : item.Tipo_de_Trabajo === 'MPT' ? 730 : 0;
+    let diasParaSumar = item.Tipo_de_Trabajo === 'PTC' ? 366 : item.Tipo_de_Trabajo === 'MPT' ? 732 : 0;
     let fechaProximoExamen = new Date(fechaExamen);
-    fechaProximoExamen.setDate(fechaProximoExamen.getDate() + diasParaSumar);
+    fechaProximoExamen.setDate(fechaProximoExamen.getDate() + diasParaSumar );
 
     let diasParaVencer = diasParaSumar - diasTranscurridos;
     let estado = diasParaVencer <= 0 ? 'Vencido' : diasParaVencer <= 60 ? 'Por Vencer' : 'Vigente';
@@ -123,10 +120,23 @@ function SolicitarExamen() {
     let Superintendencia = document.getElementById("IdSP").value;
     let Supervisor = document.getElementById("IdSupervisor").value;
     let TipoDeTrabajo = document.getElementById("IdTipoTrabajo").value;
-    let FechaTentativaExamen = formatFecha(document.getElementById("IdFechaSelect").value);
+    let FechaTentativaExamen = document.getElementById("IdFechaSelect").value;
+
+    // Debug: Verificar qué valores se están obteniendo
+    console.log({
+        NombrePersona,
+        CedulaPersona,
+        FechaUltimoExamen,
+        FechaProximoExamen,
+        Gerencia,
+        Superintendencia,
+        TipoDeTrabajo,
+        Supervisor,
+        FechaTentativaExamen
+    });
 
     // Validar que todos los campos necesarios estén llenos
-    if (!NombrePersona || !CedulaPersona || !FechaUltimoExamen || !FechaProximoExamen || !Gerencia || !Superintendencia || !TipoDeTrabajo || !FechaTentativaExamen|| !Supervisor ) {
+    if (!NombrePersona || !CedulaPersona || !FechaUltimoExamen || !FechaProximoExamen || !Gerencia || !Superintendencia || !TipoDeTrabajo || !Supervisor || !FechaTentativaExamen) {
         Swal.fire({
             icon: 'warning',
             title: 'Campos obligatorios',
@@ -135,11 +145,18 @@ function SolicitarExamen() {
         return; // Detener el proceso si algún campo está vacío
     }
 
-    // Formatear la fecha de yyyy-mm-dd a dd/mm/yyyy
-    function formatFecha(fecha) {
-        const partesFecha = fecha.split("-");
-        return `${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]}`; // Retornar en formato dd/mm/yyyy
+    // Validar si las fechas son válidas (si están vacías o mal formateadas)
+    if (!isValidDate(FechaTentativaExamen)) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Fecha inválida',
+            text: 'Por favor, selecciona una fecha válida para el examen.'
+        });
+        return;
     }
+
+    // Formatear la fecha de yyyy-mm-dd a dd/mm/yyyy
+    FechaTentativaExamen = formatFecha(FechaTentativaExamen);
 
     const data = {
         "NombrePersona": NombrePersona,
@@ -205,5 +222,17 @@ function SolicitarExamen() {
         }
     });
 }
+
+// Función para formatear la fecha
+function formatFecha(fecha) {
+    const partesFecha = fecha.split("-");
+    return `${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]}`; // Retornar en formato dd/mm/yyyy
+}
+
+// Función para validar que la fecha no esté vacía ni sea inválida
+function isValidDate(fecha) {
+    return fecha && !isNaN(new Date(fecha).getTime());
+}
+
 
 

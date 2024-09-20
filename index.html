@@ -28,61 +28,61 @@
         
         <!-- Formulario de resultado -->
         <!-- Ocutar el form style="display: none;" -->
-        <form " style="display: none;"  id="resultado" class="row mt-5" >
+        <form "   id="resultado" class="row mt-5" >
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdNombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="IdNombre">
+              <input type="text" class="form-control" id="IdNombre" disabled>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdCedula" class="form-label">Cédula</label>
-              <input type="text" class="form-control" id="IdCedula">
+              <input type="text" class="form-control" id="IdCedula" disabled>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdFechaExamen" class="form-label">Fecha último examen (dd/mm/yyyy)</label>
-              <input type="text" class="form-control" id="IdFechaExamen">
+              <input type="text" class="form-control" id="IdFechaExamen" disabled>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdFechaProximoExamen" class="form-label">Fecha próximo examen (dd/mm/yyyy)</label>
-              <input type="text" class="form-control" id="IdFechaProximoExamen">
+              <input type="text" class="form-control" id="IdFechaProximoExamen" disabled>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdDiasTranscurridos" class="form-label">Días transcurridos</label>
-              <input type="text" class="form-control" id="IdDiasTranscurridos">
+              <input type="text" class="form-control" id="IdDiasTranscurridos" disabled>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdEstado" class="form-label">Estado</label>
-              <input type="text" class="form-control" id="IdEstado">
+              <input type="text" class="form-control" id="IdEstado" disabled>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdTipoExamen" class="form-label">Tipo examen</label>
-              <input type="text" class="form-control" id="IdTipoExamen">
+              <input type="text" class="form-control" id="IdTipoExamen" disabled>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdTipoEmpleado" class="form-label">Tipo de empleado</label>
-              <input type="text" class="form-control" id="IdTipoEmpleado">
+              <input type="text" class="form-control" id="IdTipoEmpleado" disabled>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdTipoTrabajo" class="form-label">Tipo de trabajo</label>
-              <input type="text" class="form-control" id="IdTipoTrabajo">
+              <input type="text" class="form-control" id="IdTipoTrabajo" disabled>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdGerencia" class="form-label">Gerencia</label>
-              <input type="text" class="form-control" id="IdGerencia">
+              <input type="text" class="form-control" id="IdGerencia" placeholder="Nombre de la gerencia" required>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdSP" class="form-label">Superintendencia</label>
-              <input type="text" class="form-control" id="IdSP">
+              <input type="text" class="form-control" id="IdSP" placeholder="Nombre de la superintendencia" required>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdSupervisor" class="form-label">Supervisor</label>
-              <input type="text" class="form-control" id="IdSupervisor">
+              <input type="text" class="form-control" id="IdSupervisor" placeholder="Nombre del supervisor" required>
             </div>
 
             <div class="col-lg-4 col-md-6 mb-4">
               <label for="IdFechaSelect" class="form-label">Fecha estimada</label>
               <div class="input-group shadow-sm">
-                <span class="input-group-text bg-light border rounded-start">
-                  <i class="bi bi-calendar-event"></i> <!-- Ícono de calendario -->
+                <span class="input-group-text bg-light border rounded-start" required>
+                  <i class="bi bi-calendar-event"></i> 
                 </span>
                 <input type="date" class="form-control border rounded-end" id="IdFechaSelect">
               </div>

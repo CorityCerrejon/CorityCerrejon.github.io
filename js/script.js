@@ -42,6 +42,7 @@ function enviarCedula() {
                         title: `${NombrePersona} necesito de tu ayuda`,
                         text: '¿Eres PTC o MPT?',
                         icon: 'question',
+                        showCloseButton: true,
                         showDenyButton: true,
                         confirmButtonText: 'PTC',
                         denyButtonText: 'MPT',
@@ -138,6 +139,7 @@ function SolicitarExamen() {
     // Validar que todos los campos necesarios estén llenos
     if (!NombrePersona || !CedulaPersona || !FechaUltimoExamen || !FechaProximoExamen || !Gerencia || !Superintendencia || !TipoDeTrabajo || !Supervisor || !FechaTentativaExamen) {
         Swal.fire({
+            showCloseButton: true,
             icon: 'warning',
             title: 'Campos obligatorios',
             text: 'Todos los campos deben estar llenos. Por favor, completa todos los campos.'

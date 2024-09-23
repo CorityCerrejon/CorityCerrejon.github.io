@@ -132,12 +132,11 @@ function SolicitarExamen() {
         Gerencia,
         Superintendencia,
         TipoDeTrabajo,
-        Supervisor,
-        FechaTentativaExamen
+        Supervisor
     });
 
     // Validar que todos los campos necesarios estén llenos
-    if (!NombrePersona || !CedulaPersona || !FechaUltimoExamen || !FechaProximoExamen || !Gerencia || !Superintendencia || !TipoDeTrabajo || !Supervisor || !FechaTentativaExamen) {
+    if (!NombrePersona || !CedulaPersona || !FechaUltimoExamen || !FechaProximoExamen || !Gerencia || !Superintendencia || !TipoDeTrabajo || !Supervisor) {
         Swal.fire({
             showCloseButton: true,
             icon: 'warning',

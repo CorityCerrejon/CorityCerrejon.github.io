@@ -77,7 +77,8 @@ function enviarCedula() {
 
 function procesarDatos(item) {
     document.getElementById("resultado").style.display = "";
-    document.getElementById("correo-btn").style.display = "inline-block";
+    document.getElementById("idSolicitarInf").style.display = "";
+    document.getElementById("correo-btn").style.display = "";
 
     let fechaExamen = new Date(item.Fecha_de_Examen.split('/').reverse().join('-'));
     let hoy = new Date();
@@ -110,6 +111,7 @@ function actualizarCampos(item, fechaProximoExamen, diasTranscurridos, estado) {
     $('#IdSP').val(item.Superintendencia || '');
     $('#IdTipoTrabajo').val(item.Tipo_de_Trabajo || '');
     $('#IdSupervisor').val(item.Supervisor || '');
+    $('#IdCorreo').val(item.Correo || '');
 }
 
 function SolicitarExamen() {
@@ -121,22 +123,12 @@ function SolicitarExamen() {
     let Superintendencia = document.getElementById("IdSP").value;
     let Supervisor = document.getElementById("IdSupervisor").value;
     let TipoDeTrabajo = document.getElementById("IdTipoTrabajo").value;
+    let Correo = document.getElementById("IdCorreo").value;
     let FechaTentativaExamen = document.getElementById("IdFechaSelect").value;
 
-    // Debug: Verificar qué valores se están obteniendo
-    console.log({
-        NombrePersona,
-        CedulaPersona,
-        FechaUltimoExamen,
-        FechaProximoExamen,
-        Gerencia,
-        Superintendencia,
-        TipoDeTrabajo,
-        Supervisor
-    });
 
     // Validar que todos los campos necesarios estén llenos
-    if (!NombrePersona || !CedulaPersona || !FechaUltimoExamen || !FechaProximoExamen || !Gerencia || !Superintendencia || !TipoDeTrabajo || !Supervisor) {
+    if (!NombrePersona || !CedulaPersona || !FechaUltimoExamen || !FechaProximoExamen || !Gerencia || !Superintendencia || !TipoDeTrabajo || !Supervisor || !Correo ) {
         Swal.fire({
             showCloseButton: true,
             icon: 'warning',
@@ -167,6 +159,7 @@ function SolicitarExamen() {
         "Gerencia": Gerencia,
         "Superintendencia": Superintendencia,
         "TipoDeTrabajo": TipoDeTrabajo,
+        "Correo": Correo,
         "FechaTentativaExamen": FechaTentativaExamen
     };
 

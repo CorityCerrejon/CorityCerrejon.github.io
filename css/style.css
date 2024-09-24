@@ -5,7 +5,7 @@
     width: 100%;
     z-index: 1000;
     background-color: #008f8f;/* Fondo blanco para que no se vea el contenido detrás */
-    padding: 10px 0;
+    padding: 2px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
     color: white;
     text-align: center;
@@ -14,13 +14,13 @@
 body {
     margin: 0;
     padding: 0;
-    padding-top: 80px;
+    padding-top: 90px;
     background-color: #f8f9fa;
 }
 .container {
     margin-top: 50px;
 }
-.submit-btn {
+.submit-btn  {
     background-color: #00afaa;
     border-color: #00afaa;
     color: white;
@@ -37,21 +37,7 @@ body {
     border-color: #008f8f !important;
     box-shadow: none;
 }
-.table th {
-    text-align: center;
-    background-color: #00afaa;
-    color: white;
-}
-.table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-.table tbody tr:hover {
-    background-color: #d1e7dd;
-}
-.table td, .table th {
-    vertical-align: middle;
-    text-align: center;
-}
+
 
 
 
